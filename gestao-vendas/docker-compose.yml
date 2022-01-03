@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql:8.0.22
+    container_name: mysql
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_USER: gvendas
+      MYSQL_PASSWORD: gvendas
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gvendas_db

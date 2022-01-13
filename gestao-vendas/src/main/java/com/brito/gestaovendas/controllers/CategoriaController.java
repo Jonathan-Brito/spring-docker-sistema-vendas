@@ -3,6 +3,8 @@ package com.brito.gestaovendas.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class CategoriaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> salvar(@RequestBody Categoria categoria){
+	public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria){
 		
 		Categoria categoriaSalva = categoriaService.salvar(categoria);
 		
@@ -47,7 +49,7 @@ public class CategoriaController {
 	}
 	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @RequestBody Categoria categoria){
+	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria){
 		return ResponseEntity.ok(categoriaService.atualizar(codigo, categoria));
 	}
 

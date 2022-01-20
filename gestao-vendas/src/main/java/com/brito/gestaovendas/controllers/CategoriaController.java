@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.brito.gestaovendas.entities.Categoria;
 import com.brito.gestaovendas.servicies.CategoriaService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = "Categorias")
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
@@ -26,13 +30,15 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	@ApiOperation(value = "Listar")
 	@GetMapping
 	public List<Categoria> listarTodas(){
 		return categoriaService.listarTodas();
 	}
 	
+	@ApiOperation(value = "Listar por código")
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Categoria>> buscarPorId(@PathVariable Long codigo){
+	public ResponseEntity<Optional<Categoria>> listarPorCodigo(@PathVariable Long codigo){
 		
 		Optional<Categoria> categoria = categoriaService.buscarPorCodigo(codigo);
 		
@@ -40,6 +46,7 @@ public class CategoriaController {
 				ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
 	}
 	
+	@ApiOperation(value = "Salvar")
 	@PostMapping
 	public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria){
 		
@@ -48,6 +55,7 @@ public class CategoriaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
 	}
 	
+	@ApiOperation(value = "Atualizar")
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria){
 		return ResponseEntity.ok(categoriaService.atualizar(codigo, categoria));
